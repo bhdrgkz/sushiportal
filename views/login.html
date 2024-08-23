@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="tr" data-bs-theme="auto">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<title>Giriş</title>
+
+	<link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/styles.css" rel="stylesheet">
+	<link href="/css/login.css" rel="stylesheet">
+
+
+</head>
+<body class="d-flex align-items-center py-4 bg-body-tertiary">
+
+{% include "partials/color_modes.html" %}
+
+<main class="form-signin w-100 m-auto">
+	<form action="/login" id="loginForm" method="POST" class="my-login-validation">
+		<img class="mb-4" src="https://www.sushico.com.tr/assets/img/sushico_logo_siyah.png" alt="" height="75">
+		<h1 class="h3 mb-3 fw-normal">Giriş Yapın</h1>
+
+		{% if errorMessage %}
+			<div class="alert alert-danger" role="alert">
+				{{ errorMessage }}
+			</div>
+		{% endif %}
+
+		<div class="form-floating">
+			<input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email Adresi" required>
+			<label for="inputEmail">Email adresi</label>
+		</div>
+		<div class="form-floating">
+			<input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Şifre" required>
+			<label for="inputPassword">Şifre</label>
+		</div>
+
+		{#
+		<div class="form-check text-start my-3">
+			<input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+			<label class="form-check-label" for="flexCheckDefault">
+				Remember me
+			</label>
+		</div>
+		#}
+		<button class="btn btn-primary w-100 py-2" type="submit">GİRİŞ</button>
+		<p class="mt-5 mb-3 text-body-secondary">&copy; 1997–2024</p>
+		<input type="hidden" name="_csrf" value="{{csrfToken}}" >
+	</form>
+</main>
+<script src="/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
