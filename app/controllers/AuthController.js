@@ -1,9 +1,9 @@
-const crypto 		= require('crypto');
-//const bcrypt 		= require('bcryptjs');
-const CryptoJS 		= require("crypto-js");
-const validator 	= require('validator');
-const Members 		= require('../models/Members');
-const Session 		= require('../models/Session');
+//const bcrypt 					= require('bcryptjs');
+const CryptoJS 					= require("crypto-js");
+const validator 				= require("validator");
+const Members 					= require("../models/Members");
+const Session 					= require("../models/Session");
+const flashMessageEditer 		= require("../../lib/helpers/flashMessageEditer");
 
 const message = (req) => {
 	let message = req.flash('error');
@@ -27,11 +27,24 @@ const oldInput = (req) => {
 	return oldInput;
 }
 
-exports.loginPage = (req, res, next) => {
+exports.loginPage = async (req, res, next) => {
 	if(res.locals.isAuthenticated){
 		res.redirect('/');
 	} else {
-		res.render('login',{layout: 'login_layout', loginPage: true, pageTitle: 'Login', errorMessage: message(req), oldInput: oldInput(req)});
+
+		const page = {
+			asset: {
+				title: "Giriş",
+				style: "login.css",
+				view: "login",
+			},
+			data: {
+				flashMessage: flashMessageEditer.message(req),
+			}
+		}
+
+		res.render(page.asset.view, page);
+
 	}
 };
 
@@ -129,36 +142,4 @@ exports.forgotPasswordPage = (req, res, next) => {
 	} else {
 		return res.render('forgot_password',{layout: 'login_layout', loginPage: true, pageTitle: 'Forgot Password', errorMessage: message(req), oldInput: oldInput(req)});
 	}
-};
-
-exports.forgotPassword = (req, res, next) => {
-	const validationErrors = [];
-	if (!validator.isEmail(req.body.email)) validationErrors.push('Please enter a valid email address.');
-
-	if (validationErrors.length) {
-		req.flash('error', validationErrors);
-		return res.redirect('/forgot-password');
-	}
-	crypto.randomBytes(32, (err, buffer) => {
-		if (err) {
-			console.log(err);
-			return res.redirect('/forgot-password');
-		}
-		const token = buffer.toString('hex');
-		Members.findOne({where: {
-				email: req.body.email
-				}
-			})
-			.then(member => {
-				if(!member){
-					req.flash('error', 'No member found with that email');
-					return res.redirect('/forgot-password');
-				}
-				member.resetToken = token;
-				member.resetTokenExpiry = Date.now() + 3600000;
-				return member.save();
-			}).then(result => {
-				if(result) return res.redirect('/resetlink');
-			}).catch(err => {console.log(err)})
-	});
 };

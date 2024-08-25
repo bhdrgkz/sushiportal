@@ -1,0 +1,11 @@
+{% if data.flashMessage.message %}
+    {% if data.flashMessage.messageType == "error" %}
+        {% set messageType = "danger" %}
+    {% elseif data.flashMessage.messageType == "success" %}
+        {% set messageType = "success" %}
+    {% endif %}
+
+    <div class="alert alert-{{ messageType }}" role="alert">
+        {{ data.flashMessage.message }}
+    </div>
+{% endif %}

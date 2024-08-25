@@ -1,0 +1,50 @@
+{% include "dashboard/header.html" %}
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        <main class="col-md-12 col-lg-12">
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h4 class="h4">Puan Talep</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <h4 class="mb-3">Kullanıcı Bilgileri</h4>
+                    <form action="/login" id="loginForm" method="POST">
+                        <div class="row g-3 mb-5">
+                            <div class="col-sm-5">
+                                <input type="email" class="form-control" id="firstName" placeholder="Email Adresi" value="">
+                            </div>
+
+                            <div class="col-sm-2">
+                                <span class="w-100 text-center d-block pt-2">ve/veya</span>
+                            </div>
+
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="lastName" placeholder="Telefon Numarası" value="">
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="formFileMultiple" class="form-label">Adisyon Seç</label>
+                                <input class="form-control" type="file" id="formFileMultiple" required>
+                            </div>
+
+                        </div>
+
+                        <button class="w-100 btn btn-primary btn-lg mb-5" type="submit">Onaya Gönder</button>
+                    </form>
+                </div>
+
+
+            </div>
+
+
+        </main>
+    </div>
+</div>
+
+{% include "dashboard/footer.html" %}
+
+

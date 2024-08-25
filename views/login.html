@@ -4,11 +4,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<title>Giriş</title>
+	<title>{{ asset.title }}</title>
 
 	<link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 	<link href="/css/styles.css" rel="stylesheet">
-	<link href="/css/login.css" rel="stylesheet">
+	<link href="/css/{{ asset.style }}" rel="stylesheet">
 
 
 </head>
@@ -18,14 +18,12 @@
 
 <main class="form-signin w-100 m-auto">
 	<form action="/login" id="loginForm" method="POST" class="my-login-validation">
-		<img class="mb-4" src="https://www.sushico.com.tr/assets/img/sushico_logo_siyah.png" alt="" height="75">
-		<h1 class="h3 mb-3 fw-normal">Giriş Yapın</h1>
+		<div class="col-md-12 d-flex justify-content-center">
+			<img class="mb-4" src="https://www.sushico.com.tr/assets/img/sushico_logo_siyah.png" alt="" height="75">
+		</div>
+		<h1 class="h3 mb-3 fw-normal d-flex justify-content-center">Giriş Yapın</h1>
 
-		{% if errorMessage %}
-			<div class="alert alert-danger" role="alert">
-				{{ errorMessage }}
-			</div>
-		{% endif %}
+		{% include "partials/flash_message_editer.html" %}
 
 		<div class="form-floating">
 			<input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Email Adresi" required>
@@ -45,7 +43,7 @@
 		</div>
 		#}
 		<button class="btn btn-primary w-100 py-2" type="submit">GİRİŞ</button>
-		<p class="mt-5 mb-3 text-body-secondary">&copy; 1997–2024</p>
+		<p class="mt-5 mb-3 text-body-secondary d-flex justify-content-center">&copy; 1997–2024</p>
 		<input type="hidden" name="_csrf" value="{{csrfToken}}" >
 	</form>
 </main>
